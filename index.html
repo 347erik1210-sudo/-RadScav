@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>辐射拾荒 RadScav</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #070a0f; color: #e6edf3;
+    font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100vh; gap: 14px;
+  }
+  h1 { font-size: 20px; margin: 0; letter-spacing: 2px; }
+  .hud {
+    width: 800px; display: flex; align-items: center; gap: 16px;
+    font-size: 14px; padding: 0 4px;
+  }
+  .hud .stat { display: flex; align-items: center; gap: 6px; }
+  .hud b { color: #5ab4ff; }
+  .hpbar { flex: 1; height: 12px; background: #1c2330; border-radius: 6px; overflow: hidden; }
+  #hpfill { height: 100%; width: 100%; background: #3ad07a; transition: width .1s linear; }
+  .stage { position: relative; }
+  canvas { background: #0e1116; border: 1px solid #1c2330; border-radius: 8px; display: block; }
+  #overlay {
+    position: absolute; inset: 0; background: rgba(7,10,15,0.92);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; text-align: center; border-radius: 8px; padding: 24px;
+  }
+  #overlay h2 { margin: 0; font-size: 22px; }
+  #overlay p { margin: 0; color: #9fb0c0; line-height: 1.7; max-width: 600px; }
+  #overlay b { color: #e6c84f; }
+  #start-btn {
+    margin-top: 6px; padding: 10px 26px; font-size: 15px; cursor: pointer;
+    background: #5ab4ff; color: #070a0f; border: 0; border-radius: 8px; font-weight: 600;
+  }
+  #start-btn:hover { background: #7cc4ff; }
+  .tip { color: #5f7080; font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>辐射拾荒 · RADSCAV</h1>
+  <div class="hud">
+    <div class="stat">得分 <b id="score">0</b></div>
+    <div class="stat">血量</div>
+    <div class="hpbar"><div id="hpfill"></div></div>
+    <div class="stat">剩余 <b id="time">60s</b></div>
+  </div>
+  <div class="stage">
+    <canvas id="game" width="800" height="600"></canvas>
+    <div id="overlay">
+      <h2 id="overlay-title">辐射拾荒</h2>
+      <p id="overlay-body">
+        用 <b>方向键 / WASD</b> 移动，在辐射区持续扩大的地图里收集黄色废料。<br>
+        越靠近红色危险区，废料越密集，但持续掉血——这就是核心循环：<b>探索 → 风险决策 → 回报</b>。<br>
+        拾取<b>绿色医疗包</b>可回血（+25），多用来在冒险后回安全区补血。<br>
+        60 秒或血量归零结束，比谁收得多。
+      </p>
+      <button id="start-btn">开始游戏</button>
+    </div>
+  </div>
+  <div class="tip">纯 HTML5 + Canvas 单文件 · 零依赖 · 直接浏览器打开即玩</div>
+
+  <script src="core.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
