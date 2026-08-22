@@ -37,6 +37,14 @@
   }
   #start-btn:hover { background: #7cc4ff; }
   .tip { color: #5f7080; font-size: 12px; }
+  .board { width: 100%; max-width: 320px; }
+  .board-title { font-size: 13px; color: #9fb0c0; margin-bottom: 6px; letter-spacing: 1px; }
+  .board-list { list-style: none; margin: 0; padding: 0; }
+  .board-row { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 3px 8px; border-radius: 4px; }
+  .board-row.me { background: rgba(90,180,255,0.18); color: #5ab4ff; font-weight: 600; }
+  .board-row .rk { width: 22px; color: #e6c84f; text-align: right; }
+  .board-row .sc { flex: 1; text-align: left; }
+  .board-row .dt { color: #5f7080; font-size: 11px; }
 </style>
 </head>
 <body>
@@ -54,10 +62,13 @@
       <p id="overlay-body">
         用 <b>方向键 / WASD</b> 移动，在辐射区持续扩大的地图里收集黄色废料。<br>
         越靠近红色危险区，废料越密集，但持续掉血——这就是核心循环：<b>探索 → 风险决策 → 回报</b>。<br>
+        <b style="color:#ffd24a">金色菱形废料</b>价值翻倍（+20 分），但只刷新在辐射区更深处，捡它要冒更多血。<br>
         拾取<b>绿色医疗包</b>可回血（+25），多用来在冒险后回安全区补血。<br>
+        还能捡到<b style="color:#cfd8e3">问号随机道具</b>：开盲盒随机获得一种效果（加速 / 分数翻倍 / 辐射中和 / 陷阱扣分 / 减速 / 中毒），可能惊喜也可能踩雷。<br>
         60 秒或血量归零结束，比谁收得多。
       </p>
       <button id="start-btn">开始游戏</button>
+      <div id="board" class="board"></div>
     </div>
   </div>
   <div class="tip">纯 HTML5 + Canvas 单文件 · 零依赖 · 直接浏览器打开即玩</div>

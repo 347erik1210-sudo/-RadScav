@@ -27,6 +27,23 @@ function applyHeal(hp, heal, maxHp) {
   return Math.min(maxHp, hp + heal);
 }
 
+// 排行榜：按分数降序排序并截断到 max
+function topBoard(scores, max) {
+  return scores.slice().sort((a, b) => b.score - a.score).slice(0, max);
+}
+
+// 将本局成绩插入榜单，返回新榜单与本局名次（未进榜返回 null）
+// entry 形如 { score, date }；元素为浅拷贝引用，indexOf 可定位本局
+// minScore > 0 时，低于门槛的成绩不插入榜单（rank 为 null）
+function insertScore(scores, entry, max, minScore) {
+  if (minScore != null && entry.score < minScore) {
+    return { board: scores.slice(), rank: null };
+  }
+  const board = topBoard(scores.concat([entry]), max);
+  const idx = board.indexOf(entry);
+  return { board, rank: idx >= 0 ? idx + 1 : null };
+}
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { rand, rectOverlap, computeDangerRadius, dangerDpsAt, applyHeal };
+  module.exports = { rand, rectOverlap, computeDangerRadius, dangerDpsAt, applyHeal, topBoard, insertScore };
 }
